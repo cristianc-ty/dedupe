@@ -23,7 +23,7 @@ class BlockLearner(ABC):
         comparison_count = self.comparison_count  # type: ignore
 
         dupe_cover = Cover(self.blocker.predicates, matches)  # type: ignore
-        dupe_cover.compound(2)
+        dupe_cover.compound(1)
         dupe_cover.intersection_update(comparison_count)
 
         dupe_cover.dominators(cost=comparison_count)
@@ -248,7 +248,11 @@ class BranchBound(object):
 
         if covered >= self.target:
             if score < self.cheapest_score:
+                logger.debug("===DEBUG: new cheapest score at " + str(self.calls) + " calls===")
                 self.cheapest = partial
+                logger.debug("===DEBUG: predicate set ===")
+                for predicate in self.cheapest:
+                    logger.info(predicate)
                 self.cheapest_score = score
 
         else:

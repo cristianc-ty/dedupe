@@ -1,13 +1,22 @@
 import csv
 import re
 
+from ast import literal_eval as make_tuple
+
+lat_long_pattern = re.compile(r"^\[[\-\d\.]+\,[\-\d\.]+\]$")
+
 
 def preProcess(column):
     column = re.sub('  +', ' ', column)
     column = re.sub('\n', ' ', column)
     column = column.strip().strip('"').strip("'").lower()
+
     if not column:
-        column = None
+        return None
+
+    if lat_long_pattern.match(column):
+        return make_tuple(column)
+
     return column
 
 

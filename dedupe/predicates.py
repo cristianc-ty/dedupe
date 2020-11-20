@@ -528,8 +528,9 @@ def latLongGridPredicate(field, digits=1):
     at the equator. But it should be reasonably precise given some
     prior logical block (e.g., country).
     """
+    scale_factor = pow(10, digits)
     if any(field):
-        return (str([round(dim, digits) for dim in field]),)
+        return str([math.trunc(dim * scale_factor) / scale_factor for dim in field]),
     else:
         return ()
 
