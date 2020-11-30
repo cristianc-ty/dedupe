@@ -58,10 +58,10 @@ if __name__ == '__main__':
 
     settings_file = 'canonical_data_matching_learned_settings'
 
-    data_1, header = canonicalImport('tests/datasets/debug_source.csv')
-    data_2, _ = canonicalImport('tests/datasets/debug_target_dev.csv')
+    data_1, header = canonicalImport('tests/datasets/refined/matching_booking_filtered.csv')
+    data_2, _ = canonicalImport('tests/datasets/refined/matching_ty_annotated.csv')
 
-    training_pairs = dedupe.training_data_link(data_1, data_2, 'unique_id', 100000)
+    training_pairs = dedupe.training_data_link(data_1, data_2, 'unique_id', 5000)
 
     all_data = data_1.copy()
     all_data.update(data_2)
@@ -97,33 +97,33 @@ if __name__ == '__main__':
         ]
 
         deduper = dedupe.RecordLink(fields)
-        deduper.prepare_training(data_1, data_2, sample_size=150000)
+        deduper.prepare_training(data_1, data_2, sample_size=10000)
         deduper.mark_pairs(training_pairs)
-        deduper.train(recall=1.0)
+        deduper.train(recall=1.0, index_predicates=False)
 
         with open(settings_file, 'wb') as f:
             deduper.write_settings(f)
 
-    # # print candidates
-    # print('clustering...')
-    # clustered_dupes = deduper.join(data_1, data_2, threshold=0.5)
-    #
-    # print('Evaluate Clustering')
-    # confirm_dupes = set(frozenset(pair)
-    #                     for pair, score in clustered_dupes)
-    #
-    # evaluateDuplicates(confirm_dupes, duplicates_s)
-    #
-    # print('ran in ', time.time() - t0, 'seconds')
-    #
-    # # print candidates
-    # print('clustering...')
-    # clustered_dupes = deduper.join(data_1, data_2, threshold=0.5, constraint='many-to-one')
-    #
-    # print('Evaluate Clustering')
-    # confirm_dupes = set(frozenset(pair)
-    #                     for pair, score in clustered_dupes)
-    #
-    # evaluateDuplicates(confirm_dupes, duplicates_s)
-    #
-    # print('ran in ', time.time() - t0, 'seconds')
+    # print candidates
+    print('clustering...')
+    clustered_dupes = deduper.join(data_1, data_2, threshold=0.5)
+
+    print('Evaluate Clustering')
+    confirm_dupes = set(frozenset(pair)
+                        for pair, score in clustered_dupes)
+
+    evaluateDuplicates(confirm_dupes, duplicates_s)
+
+    print('ran in ', time.time() - t0, 'seconds')
+
+    # print candidates
+    print('clustering...')
+    clustered_dupes = deduper.join(data_1, data_2, threshold=0.5, constraint='many-to-one')
+
+    print('Evaluate Clustering')
+    confirm_dupes = set(frozenset(pair)
+                        for pair, score in clustered_dupes)
+
+    evaluateDuplicates(confirm_dupes, duplicates_s)
+
+    print('ran in ', time.time() - t0, 'seconds')

@@ -51,13 +51,10 @@ class ShortStringType(BaseStringType):
                              predicates.tokenFieldPredicate,
                              predicates.suffixArray,
                              predicates.doubleMetaphone,
-                             predicates.metaphoneToken
-                             ))
+                             predicates.metaphoneToken))
 
-    _index_predicates = [
-        predicates.TfidfNGramCanopyPredicate,
-        predicates.TfidfNGramSearchPredicate
-    ]
+    _index_predicates = [predicates.TfidfNGramCanopyPredicate,
+                         predicates.TfidfNGramSearchPredicate]
     _index_thresholds = (0.2, 0.4, 0.6, 0.8)
 
     def __init__(self, definition):
@@ -72,12 +69,10 @@ class ShortStringType(BaseStringType):
 class StringType(ShortStringType):
     type = "String"
 
-    _index_predicates = [
-        predicates.TfidfNGramCanopyPredicate,
-        predicates.TfidfNGramSearchPredicate,
-        predicates.TfidfTextCanopyPredicate,
-        predicates.TfidfTextSearchPredicate
-    ]
+    _index_predicates = [predicates.TfidfNGramCanopyPredicate,
+                         predicates.TfidfNGramSearchPredicate,
+                         predicates.TfidfTextCanopyPredicate,
+                         predicates.TfidfTextSearchPredicate]
 
 
 class TextType(BaseStringType):
@@ -85,10 +80,8 @@ class TextType(BaseStringType):
 
     _predicate_functions = base_predicates
 
-    _index_predicates = [
-        predicates.TfidfTextCanopyPredicate,
-        predicates.TfidfTextSearchPredicate
-    ]
+    _index_predicates = [predicates.TfidfTextCanopyPredicate,
+                         predicates.TfidfTextSearchPredicate]
     _index_thresholds = (0.2, 0.4, 0.6, 0.8)
 
     def __init__(self, definition):

@@ -3,7 +3,7 @@ import re
 
 from ast import literal_eval as make_tuple
 
-lat_long_pattern = re.compile(r"^\[[\-\d\.]+\,[\-\d\.]+\]$")
+lat_long_pattern = re.compile(r"^\[\-?\d+\.?\d*\,\-?\d+\.?\d*\]$")
 
 
 def preProcess(column):
