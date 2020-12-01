@@ -477,7 +477,10 @@ class RecordLinkMatching(IntegralMatching):
             'one-to-one, many-to-one, or many-to-many' % constraint)
 
         pairs = self.pairs(data_1, data_2)
+
         pair_scores = self.score(pairs)
+
+        print('Number of candidates:' + str(len(pair_scores)))
 
         if constraint == 'one-to-one':
             links = self.one_to_one(pair_scores, threshold)
@@ -1130,8 +1133,8 @@ class ActiveMatching(Matching):
         '''
         self._checkTrainingPairs(labeled_pairs)
 
-        self.training_pairs['match'].extend(labeled_pairs['match'])
-        self.training_pairs['distinct'].extend(labeled_pairs['distinct'])
+        self.training_pairs['match'] = labeled_pairs['match']
+        self.training_pairs['distinct'] = labeled_pairs['distinct']
 
         if self.active_learner:
             examples, y = flatten_training(labeled_pairs)

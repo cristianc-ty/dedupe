@@ -503,7 +503,7 @@ def magnitudeOfCardinality(field_set):
     return orderOfMagnitude(len(field_set))
 
 
-def latLongGridPredicate(field, digits=1):
+def latLongGridPredicate(field, digits=2):
     """
     Given a lat / long pair, return the grid coordinates at the
     nearest base value.  e.g., (42.3, -5.4) returns a grid at 0.1

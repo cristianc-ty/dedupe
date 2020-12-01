@@ -36,10 +36,7 @@ class BaseStringType(FieldType):
     def __init__(self, definition):
         super(BaseStringType, self).__init__(definition)
 
-        self.predicates += indexPredicates((predicates.LevenshteinCanopyPredicate,
-                                            predicates.LevenshteinSearchPredicate),
-                                           (1, 2, 3, 4),
-                                           self.field)
+        self.predicates += []
 
 
 class ShortStringType(BaseStringType):
@@ -53,8 +50,10 @@ class ShortStringType(BaseStringType):
                              predicates.doubleMetaphone,
                              predicates.metaphoneToken))
 
-    _index_predicates = [predicates.TfidfNGramCanopyPredicate,
-                         predicates.TfidfNGramSearchPredicate]
+    _index_predicates = [
+        # predicates.TfidfNGramCanopyPredicate,
+        # predicates.TfidfNGramSearchPredicate
+    ]
     _index_thresholds = (0.2, 0.4, 0.6, 0.8)
 
     def __init__(self, definition):
@@ -69,10 +68,12 @@ class ShortStringType(BaseStringType):
 class StringType(ShortStringType):
     type = "String"
 
-    _index_predicates = [predicates.TfidfNGramCanopyPredicate,
-                         predicates.TfidfNGramSearchPredicate,
-                         predicates.TfidfTextCanopyPredicate,
-                         predicates.TfidfTextSearchPredicate]
+    _index_predicates = [
+        # predicates.TfidfNGramCanopyPredicate,
+        # predicates.TfidfNGramSearchPredicate,
+        # predicates.TfidfTextCanopyPredicate,
+        # predicates.TfidfTextSearchPredicate
+    ]
 
 
 class TextType(BaseStringType):
@@ -80,8 +81,10 @@ class TextType(BaseStringType):
 
     _predicate_functions = base_predicates
 
-    _index_predicates = [predicates.TfidfTextCanopyPredicate,
-                         predicates.TfidfTextSearchPredicate]
+    _index_predicates = [
+        # predicates.TfidfTextCanopyPredicate,
+        # predicates.TfidfTextSearchPredicate
+    ]
     _index_thresholds = (0.2, 0.4, 0.6, 0.8)
 
     def __init__(self, definition):
