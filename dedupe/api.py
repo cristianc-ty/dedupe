@@ -227,7 +227,7 @@ class DedupeMatching(IntegralMatching):
         # Blocking and pair generation are typically the first memory
         # bottlenecks, so we'll use sqlite3 to avoid doing them in memory
         with tempfile.TemporaryDirectory() as temp_dir:
-            con = sqlite3.connect(temp_dir + '/blocks.db')
+            con = sqlite3.connect('/home/cristianc/extra_storage/tmp' + '/blocks.db')
 
             con.execute('''CREATE TABLE blocking_map
                            (block_key text, record_id {id_type})
@@ -365,7 +365,7 @@ class RecordLinkMatching(IntegralMatching):
         # Blocking and pair generation are typically the first memory
         # bottlenecks, so we'll use sqlite3 to avoid doing them in memory
         with tempfile.TemporaryDirectory() as temp_dir:
-            con = sqlite3.connect(temp_dir + '/blocks.db')
+            con = sqlite3.connect('/home/cristianc/extra_storage/tmp' + '/blocks.db')
 
             con.executescript('''CREATE TABLE blocking_map_a
                                  (block_key text, record_id {id_type_a});
@@ -620,7 +620,7 @@ class GazetteerMatching(Matching):
 
         self.temp_dir = tempfile.TemporaryDirectory()
 
-        self.db = self.temp_dir.name + '/blocks.db'
+        self.db = '/home/cristianc/extra_storage/tmp' + '/blocks.db'
 
         self.indexed_data: Dict[RecordID, RecordDict] = {}
 

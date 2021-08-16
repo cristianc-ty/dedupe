@@ -80,7 +80,7 @@ class BlockLearner(ABC):
         matches = list(frozenset.union(*match_cover.values()))
         pred_sample_size = max(int(math.sqrt(len(predicates))), 5)
         candidates = {}
-        K = 3
+        K = 2
 
         n_samples = 5000
         for _ in range(n_samples):

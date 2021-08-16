@@ -156,7 +156,7 @@ class ScoreDupes(object):
                 dtype = numpy.dtype([('pairs', id_type, 2),
                                      ('score', 'f4')])
 
-                temp_file, file_path = tempfile.mkstemp()
+                temp_file, file_path = tempfile.mkstemp(dir='/home/cristianc/extra_storage/tmp')
                 os.close(temp_file)
 
                 scored_pairs = numpy.memmap(file_path,
@@ -174,7 +174,7 @@ class ScoreDupes(object):
 def mergeScores(score_queue: _SimpleQueue,
                 result_queue: _SimpleQueue,
                 stop_signals: int):
-    scored_pairs_file, file_path = tempfile.mkstemp()
+    scored_pairs_file, file_path = tempfile.mkstemp(dir='/home/cristianc/extra_storage/tmp')
     os.close(scored_pairs_file)
 
     seen_signals = 0

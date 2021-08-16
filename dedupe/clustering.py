@@ -39,7 +39,7 @@ def connected_components(edgelist: numpy.ndarray,
     # have to create a new memmapped array with all the fields
     # we want and copy things over.
     with tempfile.TemporaryDirectory() as path:
-        filename = path + '/unlabeled_edgelist'
+        filename = '/home/cristianc/extra_storage/tmp' + '/unlabeled_edgelist'
         edgelist = numpy.memmap(filename,
                                 dtype=(unlabeled_edgelist.dtype.descr
                                        + [('label', 'int32')]),

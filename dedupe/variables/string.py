@@ -10,21 +10,21 @@ from typing import Optional
 crfEd = CRFEditDistance()
 
 base_predicates = (predicates.wholeFieldPredicate,
-                   predicates.firstTokenPredicate,
+                   predicates.firstTokenPredicate,  # TODO
                    predicates.commonIntegerPredicate,
-                   predicates.nearIntegersPredicate,
-                   predicates.firstIntegerPredicate,
+                   predicates.nearIntegersPredicate,  # TODO
+                   predicates.firstIntegerPredicate,  # TODO
                    predicates.hundredIntegerPredicate,
-                   predicates.hundredIntegersOddPredicate,
-                   predicates.alphaNumericPredicate,
+                   predicates.hundredIntegersOddPredicate,  # TODO
+                   predicates.alphaNumericPredicate,  # TODO
                    predicates.sameThreeCharStartPredicate,
                    predicates.sameFiveCharStartPredicate,
                    predicates.sameSevenCharStartPredicate,
                    predicates.commonTwoTokens,
                    predicates.commonThreeTokens,
-                   predicates.fingerprint,
+                   predicates.fingerprint,  # TODO
                    predicates.oneGramFingerprint,
-                   predicates.twoGramFingerprint,
+                   predicates.twoGramFingerprint,  # TODO
                    predicates.sortedAcronym
                    )
 
@@ -45,10 +45,11 @@ class ShortStringType(BaseStringType):
     _predicate_functions = (base_predicates +
                             (predicates.commonFourGram,
                              predicates.commonSixGram,
-                             predicates.tokenFieldPredicate,
+                             predicates.tokenFieldPredicate,  # TODO
                              predicates.suffixArray,
                              predicates.doubleMetaphone,
-                             predicates.metaphoneToken))
+                             predicates.metaphoneToken  # TODO
+                             ))
 
     _index_predicates = [
         # predicates.TfidfNGramCanopyPredicate,
