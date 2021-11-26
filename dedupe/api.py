@@ -227,6 +227,7 @@ class DedupeMatching(IntegralMatching):
         # Blocking and pair generation are typically the first memory
         # bottlenecks, so we'll use sqlite3 to avoid doing them in memory
         with tempfile.TemporaryDirectory() as temp_dir:
+            # cristianc: this can take up a lot of space, point to a good storage
             con = sqlite3.connect('/home/cristianc/extra_storage/tmp' + '/blocks.db')
 
             con.execute('''CREATE TABLE blocking_map
@@ -365,6 +366,7 @@ class RecordLinkMatching(IntegralMatching):
         # Blocking and pair generation are typically the first memory
         # bottlenecks, so we'll use sqlite3 to avoid doing them in memory
         with tempfile.TemporaryDirectory() as temp_dir:
+            # cristianc: this can take a lot of space, point to a good storage
             con = sqlite3.connect('/home/cristianc/extra_storage/tmp' + '/blocks.db')
 
             con.executescript('''CREATE TABLE blocking_map_a
@@ -620,6 +622,7 @@ class GazetteerMatching(Matching):
 
         self.temp_dir = tempfile.TemporaryDirectory()
 
+        # cristianc: this can take a lot of stapce, point it to a good storage
         self.db = '/home/cristianc/extra_storage/tmp' + '/blocks.db'
 
         self.indexed_data: Dict[RecordID, RecordDict] = {}
@@ -1133,6 +1136,7 @@ class ActiveMatching(Matching):
         '''
         self._checkTrainingPairs(labeled_pairs)
 
+        # cristianc: discard training pairs and consider only labeled pairs
         self.training_pairs['match'] = labeled_pairs['match']
         self.training_pairs['distinct'] = labeled_pairs['distinct']
 

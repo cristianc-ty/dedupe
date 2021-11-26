@@ -15,6 +15,7 @@ def canonicalImport(filename):
     data_d = {}
 
     with open(filename) as f:
+        # cristianc: useful when loading tab separated data
         reader = csv.DictReader(f)  # , delimiter='\t')
         for i, row in enumerate(reader):
             clean_row = {k: preProcess(v) for (k, v) in
@@ -40,6 +41,7 @@ def evaluateDuplicates(found_dupes, true_dupes):
 
 if __name__ == '__main__':
 
+    # cristianc: this is my debugger entry point
     # import pydevd_pycharm
     # pydevd_pycharm.settrace('localhost', port=8888, stdoutToServer=True, stderrToServer=True)
 
@@ -58,9 +60,11 @@ if __name__ == '__main__':
 
     settings_file = 'canonical_data_matching_learned_settings'
 
+    # cristianc: overwrite with refined training data sets
     data_1, header = canonicalImport('tests/datasets/refined/matching_booking_filtered.csv')
     data_2, _ = canonicalImport('tests/datasets/refined/matching_ty_annotated.csv')
 
+    # cristianc: consider 50000 samples during training
     training_pairs = dedupe.training_data_link(data_1, data_2, 'unique_id', 50000)
 
     all_data = data_1.copy()
@@ -83,6 +87,7 @@ if __name__ == '__main__':
         with open(settings_file, 'rb') as f:
             deduper = dedupe.StaticRecordLink(f)
     else:
+        # cristianc: configure more or less the fields from matching pipeline
         fields = [
             {'field': 'latlng', 'type': 'LatLong'},
             {'field': 'name', 'type': 'String'},
@@ -98,11 +103,13 @@ if __name__ == '__main__':
         deduper.mark_pairs(training_pairs)
         deduper.prepare_training(data_1, data_2, sample_size=150000)
         deduper.mark_pairs(training_pairs)
+        # cristianc: we aim for 99% recall for blocking
         deduper.train(recall=0.99)
 
         with open(settings_file, 'wb') as f:
             deduper.write_settings(f)
 
+    # cristianc: we are not interested in similarity in this experiment just blocking
     # print candidates
     # print('clustering one to one...')
     # clustered_dupes = deduper.join(data_1, data_2, threshold=0.00005, constraint="one-to-one")
@@ -127,6 +134,8 @@ if __name__ == '__main__':
     #
     # print('ran in ', time.time() - t0, 'seconds')
 
+    # cristianc: clustering many to many to show all pairs
+    # really low threshold to consider all candidates
     # print candidates
     print('clustering many to many...')
     clustered_dupes = deduper.join(data_1, data_2, threshold=0.00005, constraint='many-to-many')

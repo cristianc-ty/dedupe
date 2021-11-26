@@ -80,6 +80,7 @@ class BlockLearner(ABC):
         matches = list(frozenset.union(*match_cover.values()))
         pred_sample_size = max(int(math.sqrt(len(predicates))), 5)
         candidates = {}
+        # cristianc: consider combinations of at most 2 predicates
         K = 2
 
         n_samples = 5000

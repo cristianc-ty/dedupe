@@ -3,6 +3,7 @@ import re
 
 from ast import literal_eval as make_tuple
 
+# parse lat long as needed for the experiment
 lat_long_pattern = re.compile(r"^\[\-?\d+\.?\d*\,\-?\d+\.?\d*\]$")
 
 
@@ -14,6 +15,7 @@ def preProcess(column):
     if not column:
         return None
 
+    # cristianc: parse lat long as needed for the experiment
     if lat_long_pattern.match(column):
         return make_tuple(column)
 

@@ -503,6 +503,7 @@ def magnitudeOfCardinality(field_set):
     return orderOfMagnitude(len(field_set))
 
 
+# cristianc: changes to make it work how it works in the matching pipeline
 def latLongGridPredicate(field, digits=2):
     """
     Given a lat / long pair, return the grid coordinates at the

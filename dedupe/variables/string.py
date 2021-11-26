@@ -9,6 +9,7 @@ from typing import Optional
 
 crfEd = CRFEditDistance()
 
+# cristianc: the predicates not yet supported are marked with TODO in the experiment
 base_predicates = (predicates.wholeFieldPredicate,
                    predicates.firstTokenPredicate,  # TODO
                    predicates.commonIntegerPredicate,
@@ -36,6 +37,7 @@ class BaseStringType(FieldType):
     def __init__(self, definition):
         super(BaseStringType, self).__init__(definition)
 
+        # cristianc: we are intentionally not considering these in the experiment
         self.predicates += []
 
 
@@ -51,6 +53,7 @@ class ShortStringType(BaseStringType):
                              predicates.metaphoneToken  # TODO
                              ))
 
+    # cristianc: we are intentionally not considering these in the experiment
     _index_predicates = [
         # predicates.TfidfNGramCanopyPredicate,
         # predicates.TfidfNGramSearchPredicate
@@ -69,6 +72,7 @@ class ShortStringType(BaseStringType):
 class StringType(ShortStringType):
     type = "String"
 
+    # cristianc: we are intentionally not considering these in the experiment
     _index_predicates = [
         # predicates.TfidfNGramCanopyPredicate,
         # predicates.TfidfNGramSearchPredicate,
@@ -82,6 +86,7 @@ class TextType(BaseStringType):
 
     _predicate_functions = base_predicates
 
+    # cristianc: we are intentionally not considering these in the experiment
     _index_predicates = [
         # predicates.TfidfTextCanopyPredicate,
         # predicates.TfidfTextSearchPredicate

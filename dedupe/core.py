@@ -156,6 +156,7 @@ class ScoreDupes(object):
                 dtype = numpy.dtype([('pairs', id_type, 2),
                                      ('score', 'f4')])
 
+                # cristianc: this can take a lot of space, point it to a good storage
                 temp_file, file_path = tempfile.mkstemp(dir='/home/cristianc/extra_storage/tmp')
                 os.close(temp_file)
 
@@ -174,6 +175,7 @@ class ScoreDupes(object):
 def mergeScores(score_queue: _SimpleQueue,
                 result_queue: _SimpleQueue,
                 stop_signals: int):
+    # cristianc: this can take a lot of space, point it to a good storage
     scored_pairs_file, file_path = tempfile.mkstemp(dir='/home/cristianc/extra_storage/tmp')
     os.close(scored_pairs_file)
 
